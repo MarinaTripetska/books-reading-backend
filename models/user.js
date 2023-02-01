@@ -16,25 +16,24 @@ const userSchema = Schema(
       type: String,
       required: [true, "Password is required"],
     },
-    //tokens
     userLib: {
-      books: { type: Array, default: null }, //arr of books id
+      books: { type: Array, default: null }, // arr of books id
     },
   },
   { versionKey: false, timestamps: true }
 );
 
-//salt hash password:
+// salt hash password:
 userSchema.methods.setPassword = function (password) {
   this.password = bcrypt.hashSync(password, bcrypt.genSaltSync(6));
 };
 
-//parse salted password:
+// parse salted password:
 userSchema.methods.comparePassword = function (password) {
   return bcrypt.compareSync(password, this.password);
 };
 
-//validation Schema for Registration:
+// validation Schema for Registration:
 const validRegisterSchema = Joi.object({
   name: Joi.string().min(3).max(200).required().messages({
     "string.base": `"name" should be a type of 'text'`,
@@ -72,7 +71,7 @@ const validRegisterSchema = Joi.object({
     }),
 });
 
-//validation Schema for Login:
+// validation Schema for Login:
 const validLoginSchema = Joi.object({
   email: Joi.string()
     .min(5)
