@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const app = require("./app");
 const { envHelper } = require("./helpers");
 
+mongoose.set("strictQuery", true);
+
 mongoose
   .connect(envHelper.DB_HOST)
   .then(() => {
