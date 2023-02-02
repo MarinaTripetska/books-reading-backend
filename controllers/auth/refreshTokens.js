@@ -3,7 +3,7 @@ const { updateTokens } = require("../../services");
 
 const { SECRET_KEY } = process.env;
 
-const refreshTokens = async (req, res) => {
+const refreshTokens = async (req, res, next) => {
   const { refreshToken } = req.body;
 
   const { type, userId } = jwt.verify(refreshToken, SECRET_KEY);

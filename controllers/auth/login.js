@@ -1,7 +1,7 @@
 const { User } = require("../../models");
 const { updateTokens } = require("../../services");
 
-const login = async (req, res) => {
+const login = async (req, res, next) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });

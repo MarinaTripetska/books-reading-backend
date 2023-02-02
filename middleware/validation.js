@@ -1,5 +1,5 @@
 const validation = (schema) => {
-  return (req, res, next) => {
+  return (req, _, next) => {
     const { error } =
       Object.keys(req.query).length !== 0
         ? schema.validate(req.query)

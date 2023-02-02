@@ -7,7 +7,7 @@ const {
 } = require("../../models");
 
 const { authCtrl } = require("../../controllers");
-const { validation } = require("../../middleware");
+const { validation, authorization } = require("../../middleware");
 
 const router = express.Router();
 
@@ -33,6 +33,26 @@ router.post(
   async (req, res, next) => {
     try {
       await authCtrl.login(req, res, next);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+router.get(
+  "/current",
+
+  async (req, res, next) => {
+    try {
+      await authorization(req, res, next);
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  async (req, res, next) => {
+    try {
+      await authCtrl.current(req, res, next);
     } catch (error) {
       next(error);
     }

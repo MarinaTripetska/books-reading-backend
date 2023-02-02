@@ -16,7 +16,7 @@ const generateRefreshToken = (userId) => {
     type: "refresh",
   };
 
-  return jwt.sign(payload, SECRET_KEY, { expiresIn: "2m" });
+  return jwt.sign(payload, SECRET_KEY, { expiresIn: "3m" });
 };
 
 module.exports = {
