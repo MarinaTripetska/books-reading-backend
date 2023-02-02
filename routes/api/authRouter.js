@@ -59,6 +59,26 @@ router.get(
   }
 );
 
+router.get(
+  "/logout",
+
+  async (req, res, next) => {
+    try {
+      await authorization(req, res, next);
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  async (req, res, next) => {
+    try {
+      await authCtrl.logout(req, res);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 router.post(
   "/refresh-tokens",
 
