@@ -1,4 +1,5 @@
 const { User } = require("../../models");
+const { updateTokens } = require("../../services");
 
 const login = async (req, res) => {
   const { email, password } = req.body;
@@ -8,12 +9,15 @@ const login = async (req, res) => {
     throw new TypeError("Email or password is wrong");
   }
 
-  const { name } = user;
+  const { _id: userId, name } = user;
+
+  tokens = await updateTokens(userId);
 
   res.status(200).json({
     status: "success",
     code: 200,
     data: {
+      tokens,
       user: {
         email,
         name,

@@ -11,10 +11,21 @@ const userSchema = Schema(
     email: {
       type: String,
       required: [true, "Email is required"],
+      unique: true,
     },
     password: {
       type: String,
       required: [true, "Password is required"],
+    },
+    tokens: {
+      accessToken: {
+        type: String,
+      },
+      refreshToken: {
+        type: String,
+      },
+      type: Object,
+      default: null,
     },
     userLib: {
       books: { type: Array, default: null }, // arr of books id
@@ -95,10 +106,16 @@ const validLoginSchema = Joi.object({
   }),
 });
 
+//validation refresh tokens Schema:
+const validRefreshTokenSchema = Joi.object({
+  refreshToken: Joi.string().required(),
+});
+
 const User = model("user", userSchema);
 
 module.exports = {
   User,
   validRegisterSchema,
   validLoginSchema,
+  validRefreshTokenSchema,
 };
