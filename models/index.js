@@ -5,7 +5,13 @@ const {
   validRefreshTokenSchema,
 } = require("./user");
 
-const Book = require("./book");
+const {
+  Book,
+  validCreateBookSchema,
+  validUpdateBookSchema,
+  validUpdateStatusSchema,
+  validUpdateResumeSchema,
+} = require("./book");
 
 module.exports = {
   User,
@@ -13,4 +19,8 @@ module.exports = {
   validRegisterSchema,
   validLoginSchema,
   validRefreshTokenSchema,
+  validCreateBookSchema,
+  validUpdateBookSchema,
+  validUpdateStatusSchema,
+  validUpdateResumeSchema,
 };
