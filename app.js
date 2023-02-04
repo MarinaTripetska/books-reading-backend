@@ -6,8 +6,9 @@ const errorHandler = require("./errors/errorHandler");
 const { authRouter } = require("./routes/api");
 
 const app = express();
-
-const msgLogger = app.get("env") === "development" ? "dev" : "prod";
+console.log("app.get(env)", app.get("env"));
+const msgLogger =
+  app.get("env") === "development" ? "development" : "production";
 
 app.use(cors());
 app.use(express.json());
