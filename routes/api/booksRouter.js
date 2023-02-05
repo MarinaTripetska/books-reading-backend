@@ -1,20 +1,29 @@
 const express = require("express");
-// const {
-//   joiDietaryDateSchema,
-//   joiDietaryUpdateDateSchema,
-//   joiGetDateSchema,
-// } = require("../../models");
-// const { ctrlWrapper, auth, validation } = require("../../middlewares");
-// const { dietaryCtrl } = require("../../controllers");
+const {
+  validCreateBookSchema,
+  validUpdateBookSchema,
+  validUpdateStatusSchema,
+  validUpdateResumeSchema,
+} = require("../../models");
+const { authorization, validation, ctrlWrapper } = require("../../middleware");
+const { booksCtrl } = require("../../controllers");
 
 const router = express.Router();
 
-// router.get(
-//   "/",
-//   ctrlWrapper(auth),
-//   validation(joiGetDateSchema),
-//   ctrlWrapper(dietaryCtrl.getDailyDiet)
-// );
+// get all books, get
+router.get(
+  "/",
+  ctrlWrapper(authorization),
+
+  ctrlWrapper(booksCtrl.getAllProducts)
+);
+
+// get one by search, get
+// update one -  all info, patch or put
+// update status for one, patch
+// update resume for one, patch
+// create, post
+// delete, delete
 
 // router.post(
 //   "/",

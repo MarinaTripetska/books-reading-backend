@@ -25,6 +25,10 @@ const errorHandler = (err, req, res, next) => {
     error = new ErrorResponse(err.message, 401);
   }
 
+  if (err.message === "Not found") {
+    error = new ErrorResponse(err.message, 404);
+  }
+
   if (err.name === "TokenExpiredError") {
     const message = "Token expired";
     error = new ErrorResponse(message, 401);

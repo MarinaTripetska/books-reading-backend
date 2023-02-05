@@ -1,3 +1,3 @@
 const updateTokens = require("./updateTokens");
-
-module.exports = { updateTokens };
+const bookService = require("./bookService");
+module.exports = { updateTokens, bookService };
