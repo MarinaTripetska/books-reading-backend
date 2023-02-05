@@ -1,6 +1,6 @@
 const { User } = require("../../models");
 
-const signup = async (req, res) => {
+const signup = async (req, res, next) => {
   const { name, email, password } = req.body;
 
   // if user already exist:

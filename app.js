@@ -3,17 +3,19 @@ const cors = require("cors");
 const logger = require("morgan");
 
 const errorHandler = require("./errors/errorHandler");
-const { authRouter } = require("./routes/api");
+const { authRouter, booksRouter } = require("./routes/api");
 
 const app = express();
-
-const msgLogger = app.get("env") === "development" ? "dev" : "prod";
+console.log("app.get(env)", app.get("env"));
+const msgLogger =
+  app.get("env") === "development" ? "development" : "production";
 
 app.use(cors());
 app.use(express.json());
 app.use(logger(msgLogger));
 
 app.use("/api/v1/users", authRouter);
+app.use("/api/v1/books", booksRouter);
 
 // if wrong route:
 app.use((_, res, next) => {
