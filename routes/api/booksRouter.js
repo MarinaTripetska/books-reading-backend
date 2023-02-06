@@ -13,6 +13,7 @@ const router = express.Router();
 // get all books, get
 router.get(
   "/",
+
   ctrlWrapper(authorization),
 
   ctrlWrapper(booksCtrl.getAllProducts)
@@ -23,6 +24,15 @@ router.get(
 // update status for one, patch
 // update resume for one, patch
 // create, post
+router.post(
+  "/",
+
+  ctrlWrapper(authorization),
+
+  validation(validCreateBookSchema),
+
+  ctrlWrapper(booksCtrl.createBook)
+);
 // delete, delete
 
 // router.post(
