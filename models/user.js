@@ -27,9 +27,9 @@ const userSchema = Schema(
       type: Object,
       default: null,
     },
-    userLib: {
-      books: { type: Array, default: null }, // arr of books id
-    },
+    // userLib: {
+    //   books: { type: Array, default: null }, // arr of books id
+    // },
   },
   { versionKey: false, timestamps: true }
 );
@@ -44,7 +44,6 @@ userSchema.methods.comparePassword = function (password) {
   return bcrypt.compareSync(password, this.password);
 };
 
-// validation Schema for Registration:
 const validRegisterSchema = Joi.object({
   name: Joi.string().min(3).max(200).required().messages({
     "string.base": `"name" should be a type of 'text'`,
@@ -58,7 +57,7 @@ const validRegisterSchema = Joi.object({
     .max(254)
     .email({
       minDomainSegments: 2,
-      tlds: { allow: ["com", "net", "ua"] },
+      // tlds: { allow: ["com", "net", "ua"] },
     })
     .required()
     .messages({
@@ -89,7 +88,7 @@ const validLoginSchema = Joi.object({
     .max(254)
     .email({
       minDomainSegments: 2,
-      tlds: { allow: ["com", "net", "ua"] },
+      // tlds: { allow: ["com", "net", "ua"] },
     })
     .required()
     .messages({

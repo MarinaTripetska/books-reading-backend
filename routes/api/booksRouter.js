@@ -33,22 +33,13 @@ router.post(
 
   ctrlWrapper(booksCtrl.createBook)
 );
-// delete, delete
 
-// router.post(
-//   "/",
-//   ctrlWrapper(auth),
-//   validation(joiDietaryDateSchema),
-//   ctrlWrapper(dietaryCtrl.createDailyDiet)
-// );
+router.delete(
+  "/",
 
-// router.patch(
-//   "/",
-//   ctrlWrapper(auth),
-//   validation(joiDietaryUpdateDateSchema),
-//   ctrlWrapper(dietaryCtrl.updateDailyDiet)
-// );
+  ctrlWrapper(authorization),
 
-// router.delete("/", ctrlWrapper(auth), ctrlWrapper(dietaryCtrl.deleteDailyDiet));
+  ctrlWrapper(booksCtrl.deleteBook)
+);
 
 module.exports = router;
