@@ -10,7 +10,7 @@ const { booksCtrl } = require("../../controllers");
 
 const router = express.Router();
 
-// get all books, get
+// get all books:
 router.get(
   "/",
 
@@ -19,13 +19,18 @@ router.get(
   ctrlWrapper(booksCtrl.getAllProducts)
 );
 
-// get one by search, get
-// update one -  all info, patch or put
-// update status for one, patch
-// update resume for one, patch
-// create, post
+//get one by id:
+router.get(
+  "/book",
+
+  ctrlWrapper(authorization),
+
+  ctrlWrapper(booksCtrl.getBookById)
+);
+
+//create:
 router.post(
-  "/",
+  "/create",
 
   ctrlWrapper(authorization),
 
@@ -34,12 +39,17 @@ router.post(
   ctrlWrapper(booksCtrl.createBook)
 );
 
+//delete:
 router.delete(
-  "/",
+  "/delete",
 
   ctrlWrapper(authorization),
 
   ctrlWrapper(booksCtrl.deleteBook)
 );
 
+// get one by search, get
+// update one -  all info, patch or put
+// update status for one, patch
+// update resume for one, patch
 module.exports = router;
