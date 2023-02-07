@@ -59,7 +59,7 @@ const updateStatus = async (userId, payload) => {
     {
       new: true,
     }
-  );
+  ).populate("owner", "name email");
 
   if (res === null) {
     throw new Error(`Book with that id doesn't exist`);
