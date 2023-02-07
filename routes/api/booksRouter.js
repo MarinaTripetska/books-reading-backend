@@ -48,8 +48,19 @@ router.delete(
   ctrlWrapper(booksCtrl.deleteBook)
 );
 
+// update status for one, patch
+router.patch(
+  "/update-status",
+
+  ctrlWrapper(authorization),
+
+  validation(validUpdateStatusSchema),
+
+  ctrlWrapper(booksCtrl.updateStatus)
+);
+
 // get one by search, get
 // update one -  all info, patch or put
-// update status for one, patch
+
 // update resume for one, patch
 module.exports = router;

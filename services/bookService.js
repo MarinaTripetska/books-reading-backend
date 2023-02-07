@@ -46,9 +46,32 @@ const deleteBook = async (userId, bookId) => {
   return res;
 };
 
+const updateStatus = async (userId, payload) => {
+  const { bookId, status } = payload;
+  const res = await Book.findOneAndUpdate(
+    {
+      owner: userId,
+      _id: bookId,
+    },
+
+    { status },
+
+    {
+      new: true,
+    }
+  );
+
+  if (res === null) {
+    throw new Error(`Book with that id doesn't exist`);
+  }
+
+  return res;
+};
+
 module.exports = {
   booksList,
   createBook,
   deleteBook,
   getBookById,
+  updateStatus,
 };
