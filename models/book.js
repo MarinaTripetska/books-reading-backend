@@ -93,6 +93,7 @@ const validUpdateBookSchema = Joi.object({
 });
 
 const validUpdateStatusSchema = Joi.object({
+  bookId: Joi.string().required(),
   status: Joi.string().valid("pending", "active", "done").required().messages({
     "string.base": `"status" should be a type of 'text'`,
     "string.empty": `"status" cannot be an empty field`,

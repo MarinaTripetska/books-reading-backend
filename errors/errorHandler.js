@@ -29,6 +29,14 @@ const errorHandler = (err, req, res, next) => {
     error = new ErrorResponse(err.message, 409);
   }
 
+  if (
+    err.message === "Book with that id doesn't exist" ||
+    err.name === "CastError"
+  ) {
+    const msg = "Book with that id doesn't exist";
+    error = new ErrorResponse(msg, 409);
+  }
+
   if (err.message === "Not found") {
     error = new ErrorResponse(err.message, 404);
   }

@@ -10,7 +10,7 @@ const { booksCtrl } = require("../../controllers");
 
 const router = express.Router();
 
-// get all books, get
+// get all books:
 router.get(
   "/",
 
@@ -19,13 +19,18 @@ router.get(
   ctrlWrapper(booksCtrl.getAllProducts)
 );
 
-// get one by search, get
-// update one -  all info, patch or put
-// update status for one, patch
-// update resume for one, patch
-// create, post
+//get one by id:
+router.get(
+  "/book",
+
+  ctrlWrapper(authorization),
+
+  ctrlWrapper(booksCtrl.getBookById)
+);
+
+//create:
 router.post(
-  "/",
+  "/create",
 
   ctrlWrapper(authorization),
 
@@ -33,22 +38,29 @@ router.post(
 
   ctrlWrapper(booksCtrl.createBook)
 );
-// delete, delete
 
-// router.post(
-//   "/",
-//   ctrlWrapper(auth),
-//   validation(joiDietaryDateSchema),
-//   ctrlWrapper(dietaryCtrl.createDailyDiet)
-// );
+//delete:
+router.delete(
+  "/delete",
 
-// router.patch(
-//   "/",
-//   ctrlWrapper(auth),
-//   validation(joiDietaryUpdateDateSchema),
-//   ctrlWrapper(dietaryCtrl.updateDailyDiet)
-// );
+  ctrlWrapper(authorization),
 
-// router.delete("/", ctrlWrapper(auth), ctrlWrapper(dietaryCtrl.deleteDailyDiet));
+  ctrlWrapper(booksCtrl.deleteBook)
+);
 
+// update status for one, patch
+router.patch(
+  "/update-status",
+
+  ctrlWrapper(authorization),
+
+  validation(validUpdateStatusSchema),
+
+  ctrlWrapper(booksCtrl.updateStatus)
+);
+
+// get one by search, get
+// update one -  all info, patch or put
+
+// update resume for one, patch
 module.exports = router;
