@@ -12,7 +12,7 @@ const booksSchema = Schema({
   },
   year: {
     type: Number,
-    required: [true, "Year is required"],
+    default: null,
   },
   pages: {
     type: Number,
@@ -54,10 +54,9 @@ const validCreateBookSchema = Joi.object({
     "string.empty": `"author" cannot be an empty field`,
     "any.required": `"author" is a required field`,
   }),
-  year: Joi.number().required().messages({
+  year: Joi.number().messages({
     "string.base": `"year" should be a type of 'number'`,
     "string.empty": `"year" cannot be an empty field`,
-    "any.required": `"year" is a required field`,
   }),
 
   pages: Joi.number().required().messages({
