@@ -29,6 +29,10 @@ const errorHandler = (err, req, res, next) => {
     error = new ErrorResponse(err.message, 409);
   }
 
+  if (err.message === "Status is not correct") {
+    error = new ErrorResponse(err.message, 400);
+  }
+
   if (
     err.message === "Book with that id doesn't exist" ||
     err.name === "CastError"

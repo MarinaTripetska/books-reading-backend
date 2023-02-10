@@ -33,6 +33,19 @@ const getBookById = async (userId, bookId) => {
   return res;
 };
 
+const getBooksByStatus = async (userId, status) => {
+  const res = await Book.find({
+    owner: userId,
+    status,
+  }).populate("owner", "name email");
+
+  if (res === null) {
+    throw new Error(`Status is not correct`);
+  }
+
+  return res;
+};
+
 const deleteBook = async (userId, bookId) => {
   const res = await Book.findOneAndDelete({
     owner: userId,
@@ -97,4 +110,5 @@ module.exports = {
   getBookById,
   updateStatus,
   updateResume,
+  getBooksByStatus,
 };

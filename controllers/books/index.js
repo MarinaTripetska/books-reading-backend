@@ -4,6 +4,7 @@ const deleteBook = require("./deleteBook");
 const getBookById = require("./getBookById");
 const updateStatus = require("./updateStatus");
 const updateResume = require("./updateResume");
+const getBooksByStatus = require("./getBooksByStatus");
 
 module.exports = {
   getAllBooks,
@@ -12,4 +13,5 @@ module.exports = {
   deleteBook,
   updateStatus,
   updateResume,
+  getBooksByStatus,
 };

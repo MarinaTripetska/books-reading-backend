@@ -30,11 +30,11 @@ router.get(
 
 //get books with status:
 router.get(
-  "/book",
+  "/status",
 
   ctrlWrapper(authorization),
-
-  ctrlWrapper(booksCtrl.getBookById)
+  //validation for status?
+  ctrlWrapper(booksCtrl.getBooksByStatus)
 );
 
 //create:
