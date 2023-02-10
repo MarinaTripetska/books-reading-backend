@@ -68,10 +68,33 @@ const updateStatus = async (userId, payload) => {
   return res;
 };
 
+const updateResume = async (userId, payload) => {
+  const { bookId, resume, rating } = payload;
+  const res = await Book.findOneAndUpdate(
+    {
+      owner: userId,
+      _id: bookId,
+    },
+
+    { resume, rating },
+
+    {
+      new: true,
+    }
+  ).populate("owner", "name email");
+
+  if (res === null) {
+    throw new Error(`Book with that id doesn't exist`);
+  }
+
+  return res;
+};
+
 module.exports = {
   booksList,
   createBook,
   deleteBook,
   getBookById,
   updateStatus,
+  updateResume,
 };

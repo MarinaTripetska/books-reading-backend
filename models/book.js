@@ -101,6 +101,7 @@ const validUpdateStatusSchema = Joi.object({
 });
 
 const validUpdateResumeSchema = Joi.object({
+  bookId: Joi.string().required(),
   resume: Joi.string().messages({
     "string.base": `"resume" should be a type of 'text'`,
     "string.empty": `"resume" cannot be an empty field`,
