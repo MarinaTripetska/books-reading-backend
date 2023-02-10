@@ -1,7 +1,7 @@
-const { Book, User } = require("../models");
+const { Book } = require("../models");
 
-const booksList = async () => {
-  return await Book.find().populate("owner", "name email");
+const booksList = async (userId) => {
+  return await Book.find({ owner: userId }).populate("owner", "name email");
 };
 
 const createBook = async (_id, payload) => {
@@ -28,6 +28,19 @@ const getBookById = async (userId, bookId) => {
 
   if (res === null) {
     throw new Error(`Book with that id doesn't exist`);
+  }
+
+  return res;
+};
+
+const getBooksByStatus = async (userId, status) => {
+  const res = await Book.find({
+    owner: userId,
+    status,
+  }).populate("owner", "name email");
+
+  if (res === null) {
+    throw new Error(`Status is not correct`);
   }
 
   return res;
@@ -68,10 +81,34 @@ const updateStatus = async (userId, payload) => {
   return res;
 };
 
+const updateResume = async (userId, payload) => {
+  const { bookId, resume, rating } = payload;
+  const res = await Book.findOneAndUpdate(
+    {
+      owner: userId,
+      _id: bookId,
+    },
+
+    { resume, rating },
+
+    {
+      new: true,
+    }
+  ).populate("owner", "name email");
+
+  if (res === null) {
+    throw new Error(`Book with that id doesn't exist`);
+  }
+
+  return res;
+};
+
 module.exports = {
   booksList,
   createBook,
   deleteBook,
   getBookById,
   updateStatus,
+  updateResume,
+  getBooksByStatus,
 };

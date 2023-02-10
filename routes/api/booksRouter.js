@@ -4,6 +4,7 @@ const {
   validUpdateBookSchema,
   validUpdateStatusSchema,
   validUpdateResumeSchema,
+  validQueryStatusSchema,
 } = require("../../models");
 const { authorization, validation, ctrlWrapper } = require("../../middleware");
 const { booksCtrl } = require("../../controllers");
@@ -16,7 +17,7 @@ router.get(
 
   ctrlWrapper(authorization),
 
-  ctrlWrapper(booksCtrl.getAllProducts)
+  ctrlWrapper(booksCtrl.getAllBooks)
 );
 
 //get one by id:
@@ -26,6 +27,17 @@ router.get(
   ctrlWrapper(authorization),
 
   ctrlWrapper(booksCtrl.getBookById)
+);
+
+//get books with status:
+router.get(
+  "/status",
+
+  ctrlWrapper(authorization),
+
+  validation(validQueryStatusSchema),
+
+  ctrlWrapper(booksCtrl.getBooksByStatus)
 );
 
 //create:
@@ -48,7 +60,7 @@ router.delete(
   ctrlWrapper(booksCtrl.deleteBook)
 );
 
-// update status for one, patch
+// update status:
 router.patch(
   "/update-status",
 
@@ -59,8 +71,17 @@ router.patch(
   ctrlWrapper(booksCtrl.updateStatus)
 );
 
+// update resume and rating:
+router.patch(
+  "/update-resume",
+
+  ctrlWrapper(authorization),
+
+  validation(validUpdateResumeSchema),
+
+  ctrlWrapper(booksCtrl.updateResume)
+);
 // get one by search, get
 // update one -  all info, patch or put
 
-// update resume for one, patch
 module.exports = router;

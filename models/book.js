@@ -12,7 +12,7 @@ const booksSchema = Schema({
   },
   year: {
     type: Number,
-    required: [true, "Year is required"],
+    default: null,
   },
   pages: {
     type: Number,
@@ -54,10 +54,9 @@ const validCreateBookSchema = Joi.object({
     "string.empty": `"author" cannot be an empty field`,
     "any.required": `"author" is a required field`,
   }),
-  year: Joi.number().required().messages({
+  year: Joi.number().messages({
     "string.base": `"year" should be a type of 'number'`,
     "string.empty": `"year" cannot be an empty field`,
-    "any.required": `"year" is a required field`,
   }),
 
   pages: Joi.number().required().messages({
@@ -101,18 +100,25 @@ const validUpdateStatusSchema = Joi.object({
   }),
 });
 
+const validQueryStatusSchema = Joi.object({
+  status: Joi.string().valid("pending", "active", "done").required().messages({
+    "string.base": `"status" should be a type of 'text'`,
+    "string.empty": `"status" cannot be an empty field`,
+    "any.required": `"status" is a required field`,
+  }),
+});
+
 const validUpdateResumeSchema = Joi.object({
+  bookId: Joi.string().required(),
   resume: Joi.string().messages({
     "string.base": `"resume" should be a type of 'text'`,
     "string.empty": `"resume" cannot be an empty field`,
   }),
-
-  rating: Joi.number().min(1).max(5).required().messages({
+  rating: Joi.number().min(1).max(5).messages({
     "string.base": `"rating" should be a type of 'number'`,
     "string.empty": `"rating" cannot be an empty field`,
     "string.min": `"rating" should have a minimum length of {#limit}`,
     "string.max": `"rating" should have a maximum length of {#limit}`,
-    "any.required": `"rating" is a required field`,
   }),
 });
 
@@ -124,4 +130,5 @@ module.exports = {
   validUpdateBookSchema,
   validUpdateStatusSchema,
   validUpdateResumeSchema,
+  validQueryStatusSchema,
 };

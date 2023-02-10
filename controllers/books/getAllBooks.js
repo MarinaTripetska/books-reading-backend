@@ -1,7 +1,8 @@
 const { bookService } = require("../../services");
 
-const getAllProducts = async (req, res, next) => {
-  const books = await bookService.booksList();
+const getAllBooks = async (req, res, next) => {
+  const { _id: userId } = req.user;
+  const books = await bookService.booksList(userId);
 
   res.status(200).json({
     status: "OK",
@@ -13,4 +14,4 @@ const getAllProducts = async (req, res, next) => {
   });
 };
 
-module.exports = getAllProducts;
+module.exports = getAllBooks;
