@@ -16,10 +16,19 @@ router.get(
 
   ctrlWrapper(authorization),
 
-  ctrlWrapper(booksCtrl.getAllProducts)
+  ctrlWrapper(booksCtrl.getAllBooks)
 );
 
 //get one by id:
+router.get(
+  "/book",
+
+  ctrlWrapper(authorization),
+
+  ctrlWrapper(booksCtrl.getBookById)
+);
+
+//get books with status:
 router.get(
   "/book",
 
@@ -58,6 +67,7 @@ router.patch(
 
   ctrlWrapper(booksCtrl.updateStatus)
 );
+
 // update resume and rating:
 router.patch(
   "/update-resume",

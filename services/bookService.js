@@ -1,7 +1,7 @@
-const { Book, User } = require("../models");
+const { Book } = require("../models");
 
-const booksList = async () => {
-  return await Book.find().populate("owner", "name email");
+const booksList = async (userId) => {
+  return await Book.find({ owner: userId }).populate("owner", "name email");
 };
 
 const createBook = async (_id, payload) => {
