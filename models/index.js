@@ -11,6 +11,7 @@ const {
   validUpdateBookSchema,
   validUpdateStatusSchema,
   validUpdateResumeSchema,
+  validQueryStatusSchema,
 } = require("./book");
 
 module.exports = {
@@ -23,4 +24,5 @@ module.exports = {
   validUpdateBookSchema,
   validUpdateStatusSchema,
   validUpdateResumeSchema,
+  validQueryStatusSchema,
 };

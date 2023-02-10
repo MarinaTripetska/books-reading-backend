@@ -4,6 +4,7 @@ const {
   validUpdateBookSchema,
   validUpdateStatusSchema,
   validUpdateResumeSchema,
+  validQueryStatusSchema,
 } = require("../../models");
 const { authorization, validation, ctrlWrapper } = require("../../middleware");
 const { booksCtrl } = require("../../controllers");
@@ -33,7 +34,9 @@ router.get(
   "/status",
 
   ctrlWrapper(authorization),
-  //validation for status?
+
+  validation(validQueryStatusSchema),
+
   ctrlWrapper(booksCtrl.getBooksByStatus)
 );
 
