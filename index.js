@@ -10,6 +10,8 @@ const credentials = { key: privateKey, cert: certificate };
 
 mongoose.set("strictQuery", true);
 
+mongoose.set("strictQuery", true);
+
 mongoose
   .connect(envHelper.DB_HOST)
   .then(() => {
