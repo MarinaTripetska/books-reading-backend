@@ -33,9 +33,16 @@ router.delete(
 
   ctrlWrapper(trainingCtrl.deleteTraining)
 );
-//get trainings with date in future (active training)
-//update statistics (push new achieve)
 
-router.get("/");
+//get trainings with date in future (active training)
+router.get(
+  "/active-trainings",
+
+  ctrlWrapper(authorization),
+
+  ctrlWrapper(trainingCtrl.getActiveTrainings)
+);
+
+//update statistics (push new achieve)
 
 module.exports = router;
