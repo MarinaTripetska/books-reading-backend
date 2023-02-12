@@ -13,7 +13,7 @@ router.get(
 
   ctrlWrapper(trainingCtrl.getAllTrainings)
 );
-//get trainings with date in future (active training)
+
 //create training
 router.post(
   "/create",
@@ -24,8 +24,18 @@ router.post(
 
   ctrlWrapper(trainingCtrl.createTraining)
 );
-//update statistics (push new achieve)
+
 //delete training
+router.delete(
+  "/delete",
+
+  ctrlWrapper(authorization),
+
+  ctrlWrapper(trainingCtrl.deleteTraining)
+);
+//get trainings with date in future (active training)
+//update statistics (push new achieve)
+
 router.get("/");
 
 module.exports = router;

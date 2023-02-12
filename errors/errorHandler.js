@@ -45,6 +45,9 @@ const errorHandler = (err, req, res, next) => {
     error = new ErrorResponse(msg, 409);
   }
 
+  if (err.message === "Training with that id doesn't exist") {
+    error = new ErrorResponse(err.message, 409);
+  }
   if (err.message === "Not found") {
     error = new ErrorResponse(err.message, 404);
   }
