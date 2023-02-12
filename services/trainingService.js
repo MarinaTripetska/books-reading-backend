@@ -24,6 +24,13 @@ const createTraining = async (ownerId, payload) => {
     .populate("books.book");
 };
 
+const getAllTrainings = async (userId) => {
+  return await Training.find({ owner: userId })
+    .populate("owner", "name email")
+    .populate("books.book");
+};
+
 module.exports = {
   createTraining,
+  getAllTrainings,
 };

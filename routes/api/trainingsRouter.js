@@ -6,6 +6,13 @@ const { trainingCtrl } = require("../../controllers");
 
 const router = express.Router();
 //get all trainings
+router.get(
+  "/",
+
+  ctrlWrapper(authorization),
+
+  ctrlWrapper(trainingCtrl.getAllTrainings)
+);
 //get trainings with date in future (active training)
 //create training
 router.post(
