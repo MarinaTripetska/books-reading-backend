@@ -27,9 +27,6 @@ const userSchema = Schema(
       type: Object,
       default: null,
     },
-    // userLib: {
-    //   books: { type: Array, default: null }, // arr of books id
-    // },
   },
   { versionKey: false, timestamps: true }
 );

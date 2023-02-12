@@ -7,7 +7,7 @@ const {
 } = require("../../models");
 
 const { authCtrl } = require("../../controllers");
-const { validation, authorization } = require("../../middleware");
+const { validation, authorization, ctrlWrapper } = require("../../middleware");
 
 const router = express.Router();
 
@@ -16,13 +16,7 @@ router.post(
 
   validation(validRegisterSchema),
 
-  async (req, res, next) => {
-    try {
-      await authCtrl.signup(req, res, next);
-    } catch (error) {
-      next(error);
-    }
-  }
+  ctrlWrapper(authCtrl.signup)
 );
 
 router.post(
@@ -30,53 +24,23 @@ router.post(
 
   validation(validLoginSchema),
 
-  async (req, res, next) => {
-    try {
-      await authCtrl.login(req, res, next);
-    } catch (error) {
-      next(error);
-    }
-  }
+  ctrlWrapper(authCtrl.login)
 );
 
 router.get(
   "/current",
 
-  async (req, res, next) => {
-    try {
-      await authorization(req, res, next);
-    } catch (error) {
-      next(error);
-    }
-  },
+  ctrlWrapper(authorization),
 
-  async (req, res, next) => {
-    try {
-      await authCtrl.current(req, res, next);
-    } catch (error) {
-      next(error);
-    }
-  }
+  ctrlWrapper(authCtrl.current)
 );
 
 router.get(
   "/logout",
 
-  async (req, res, next) => {
-    try {
-      await authorization(req, res, next);
-    } catch (error) {
-      next(error);
-    }
-  },
+  ctrlWrapper(authorization),
 
-  async (req, res, next) => {
-    try {
-      await authCtrl.logout(req, res);
-    } catch (error) {
-      next(error);
-    }
-  }
+  ctrlWrapper(authCtrl.logout)
 );
 
 router.post(
@@ -84,13 +48,7 @@ router.post(
 
   validation(validRefreshTokenSchema),
 
-  async (req, res, next) => {
-    try {
-      await authCtrl.refreshTokens(req, res, next);
-    } catch (error) {
-      next(error);
-    }
-  }
+  ctrlWrapper(authCtrl.refreshTokens)
 );
 
 module.exports = router;

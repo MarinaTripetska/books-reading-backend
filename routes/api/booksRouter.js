@@ -1,7 +1,7 @@
 const express = require("express");
 const {
   validCreateBookSchema,
-  validUpdateBookSchema,
+  // validUpdateBookSchema,
   validUpdateStatusSchema,
   validUpdateResumeSchema,
   validQueryStatusSchema,

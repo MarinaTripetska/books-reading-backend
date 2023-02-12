@@ -3,7 +3,7 @@ const cors = require("cors");
 const logger = require("morgan");
 
 const errorHandler = require("./errors/errorHandler");
-const { authRouter, booksRouter } = require("./routes/api");
+const { authRouter, booksRouter, trainingsRouter } = require("./routes/api");
 
 const app = express();
 console.log("app.get(env)", app.get("env"));
@@ -16,6 +16,7 @@ app.use(logger(msgLogger));
 
 app.use("/api/v1/users", authRouter);
 app.use("/api/v1/books", booksRouter);
+app.use("/api/v1/trainings", trainingsRouter);
 
 // if wrong route:
 app.use((_, res, next) => {
