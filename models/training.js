@@ -1,5 +1,8 @@
 const { Schema, model } = require("mongoose");
-const Joi = require("joi");
+const JoiBase = require("joi");
+const JoiDate = require("@joi/date");
+
+const Joi = JoiBase.extend(JoiDate);
 
 const trainingSchema = Schema(
   {
@@ -12,11 +15,12 @@ const trainingSchema = Schema(
       type: Date,
       required: [true, "Finish date is required"],
     },
+
     books: [
       {
-        bookId: {
+        book: {
           type: Schema.Types.ObjectId,
-          ref: "product",
+          ref: "book",
           required: [true, "Book Id is required"],
         },
       },
@@ -45,12 +49,18 @@ const trainingSchema = Schema(
 );
 
 const book = Joi.object().keys({
-  bookId: Joi.string().required(),
+  book: Joi.string().required(),
 });
 
 const validCreateTrainingSchema = Joi.object({
-  start: Joi.date().default(Date.now()),
-  finish: Joi.date().required(),
+  start: Joi.date()
+    .format(["YYYY/MM/DD HH:mm:ss.SSSZ", "YYYY-MM-DD HH:mm:ss.SSSZ"])
+    .utc()
+    .default(Date.now()),
+  finish: Joi.date()
+    .format(["YYYY/MM/DD HH:mm:ss.SSSZ", "YYYY-MM-DD HH:mm:ss.SSSZ"])
+    .utc()
+    .required(),
   books: Joi.array().items(book).required(),
 });
 
