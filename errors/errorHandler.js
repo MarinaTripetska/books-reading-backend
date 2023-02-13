@@ -38,6 +38,12 @@ const errorHandler = (err, req, res, next) => {
   }
 
   if (
+    err.message === "You can't start your training since the date in the past!"
+  ) {
+    error = new ErrorResponse(err.message, 400);
+  }
+
+  if (
     err.message === "Book with that id doesn't exist" ||
     err.name === "CastError"
   ) {
