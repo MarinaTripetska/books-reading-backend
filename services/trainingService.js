@@ -17,6 +17,21 @@ const getActiveTrainings = async (userId) => {
   });
 };
 
+const getTrainingById = async (userId, trainingId) => {
+  const res = await Training.findOne({
+    owner: userId,
+    _id: trainingId,
+  })
+    .populate("owner", "name email")
+    .populate("books.book");
+
+  if (res === null) {
+    throw new Error(`Training with that id doesn't exist`);
+  }
+
+  return res;
+};
+
 const createTraining = async (ownerId, payload) => {
   const { start, finish, books: booksData } = payload;
 
@@ -131,4 +146,5 @@ module.exports = {
   deleteTraining,
   getActiveTrainings,
   updateStatistic,
+  getTrainingById,
 };

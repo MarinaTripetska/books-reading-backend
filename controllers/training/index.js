@@ -3,6 +3,7 @@ const createTraining = require("./createTraining");
 const deleteTraining = require("./deleteTraining");
 const getActiveTrainings = require("./getActiveTrainings");
 const updateStatistic = require("./updateStatistic");
+const getTrainingById = require("./getTrainingById");
 
 module.exports = {
   createTraining,
@@ -10,4 +11,5 @@ module.exports = {
   deleteTraining,
   getActiveTrainings,
   updateStatistic,
+  getTrainingById,
 };

@@ -1,6 +1,9 @@
 const express = require("express");
 
-const { validCreateTrainingSchema, validUpdateStatisticSchema } = require("../../models");
+const {
+  validCreateTrainingSchema,
+  validUpdateStatisticSchema,
+} = require("../../models");
 const { validation, authorization, ctrlWrapper } = require("../../middleware");
 const { trainingCtrl } = require("../../controllers");
 
@@ -41,6 +44,15 @@ router.get(
   ctrlWrapper(authorization),
 
   ctrlWrapper(trainingCtrl.getActiveTrainings)
+);
+
+//get training by id
+router.get(
+  "/training",
+
+  ctrlWrapper(authorization),
+
+  ctrlWrapper(trainingCtrl.getTrainingById)
 );
 
 //update statistics (push new achieve)
