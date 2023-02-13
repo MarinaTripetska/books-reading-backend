@@ -1,6 +1,9 @@
 const express = require("express");
 
-const { validCreateTrainingSchema } = require("../../models");
+const {
+  validCreateTrainingSchema,
+  validUpdateStatisticSchema,
+} = require("../../models");
 const { validation, authorization, ctrlWrapper } = require("../../middleware");
 const { trainingCtrl } = require("../../controllers");
 
@@ -16,7 +19,7 @@ router.get(
 
 //create training
 router.post(
-  "/create",
+  "/",
 
   ctrlWrapper(authorization),
 
@@ -27,15 +30,40 @@ router.post(
 
 //delete training
 router.delete(
-  "/delete",
+  "/",
 
   ctrlWrapper(authorization),
 
   ctrlWrapper(trainingCtrl.deleteTraining)
 );
-//get trainings with date in future (active training)
-//update statistics (push new achieve)
 
-router.get("/");
+//get trainings with date in future (active training)
+router.get(
+  "/active-trainings",
+
+  ctrlWrapper(authorization),
+
+  ctrlWrapper(trainingCtrl.getActiveTrainings)
+);
+
+//get training by id
+router.get(
+  "/training",
+
+  ctrlWrapper(authorization),
+
+  ctrlWrapper(trainingCtrl.getTrainingById)
+);
+
+//update statistics (push new achieve)
+router.patch(
+  "/statistic",
+
+  ctrlWrapper(authorization),
+
+  validation(validUpdateStatisticSchema),
+
+  ctrlWrapper(trainingCtrl.updateStatistic)
+);
 
 module.exports = router;

@@ -2,7 +2,7 @@ const current = async (req, res, next) => {
   const { tokens, email, name } = req.user;
 
   res.status(200).json({
-    status: "Success",
+    status: "OK",
     code: 200,
     data: {
       tokens,

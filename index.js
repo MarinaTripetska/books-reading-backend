@@ -10,8 +10,6 @@ const credentials = { key: privateKey, cert: certificate };
 
 mongoose.set("strictQuery", true);
 
-mongoose.set("strictQuery", true);
-
 mongoose
   .connect(envHelper.DB_HOST)
   .then(() => {
@@ -22,6 +20,8 @@ mongoose
     httpsServer.listen(envHelper.PORT, () => {
       console.log(`HTTPS Server running on port ${envHelper.PORT}`);
     });
+    // app.listen(envHelper.PORT);
+    // console.log(`Server running. Use our API on port: ${envHelper.PORT}`);
   })
   .catch((error) => {
     console.log(`ERROR: ${error.message}`);

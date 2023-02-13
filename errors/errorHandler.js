@@ -38,6 +38,17 @@ const errorHandler = (err, req, res, next) => {
   }
 
   if (
+    err.message ===
+      "You can't start or finish your training since the date in the past!" ||
+    "This date is in the past!" ||
+    "This training is finished" ||
+    "Your statistic should be in start-finish diapason" ||
+    "You provide more pages than you plan to read"
+  ) {
+    error = new ErrorResponse(err.message, 400);
+  }
+
+  if (
     err.message === "Book with that id doesn't exist" ||
     err.name === "CastError"
   ) {

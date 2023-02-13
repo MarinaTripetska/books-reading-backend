@@ -14,7 +14,7 @@ const login = async (req, res, next) => {
   tokens = await updateTokens(userId);
 
   res.status(200).json({
-    status: "success",
+    status: "OK",
     code: 200,
     data: {
       tokens,
