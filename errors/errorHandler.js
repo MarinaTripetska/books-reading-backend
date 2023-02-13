@@ -38,7 +38,10 @@ const errorHandler = (err, req, res, next) => {
   }
 
   if (
-    err.message === "You can't start your training since the date in the past!"
+    err.message ===
+      "You can't start or finish your training since the date in the past!" ||
+    "This date is in the past!" ||
+    "This training is finished"
   ) {
     error = new ErrorResponse(err.message, 400);
   }

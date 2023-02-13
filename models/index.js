@@ -14,12 +14,17 @@ const {
   validQueryStatusSchema,
 } = require("./book");
 
-const { Training, validCreateTrainingSchema } = require("./training");
+const {
+  Training,
+  validCreateTrainingSchema,
+  validUpdateStatisticSchema,
+} = require("./training");
 
 module.exports = {
   User,
   Book,
   Training,
+  validUpdateStatisticSchema,
   validCreateTrainingSchema,
   validRegisterSchema,
   validLoginSchema,

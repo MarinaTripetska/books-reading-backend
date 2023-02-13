@@ -10,6 +10,7 @@ const getAllTrainings = async (userId) => {
 const getActiveTrainings = async (userId) => {
   const timeNow = new Date().getTime();
   const allTr = await getAllTrainings(userId);
+
   return allTr.filter((tr) => {
     const finishTime = new Date(tr.finish).getTime();
     return finishTime - timeNow > 0;
@@ -17,13 +18,15 @@ const getActiveTrainings = async (userId) => {
 };
 
 const createTraining = async (ownerId, payload) => {
-  if (isPastDate(new Date(payload.start))) {
+  const { start, finish, books: booksData } = payload;
+
+  if (isPastDate(new Date(start)) || isPastDate(new Date(finish))) {
     throw new Error(
-      "You can't start your training since the date in the past!"
+      "You can't start or finish your training since the date in the past!"
     );
   }
 
-  const booksIds = payload.books.map((itm) => itm.book);
+  const booksIds = booksData.map((itm) => itm.book);
 
   const books = await Book.find()
     .where("_id")
@@ -31,7 +34,7 @@ const createTraining = async (ownerId, payload) => {
     .where("owner")
     .equals(ownerId);
 
-  if (books.length !== payload.books.length || !books) {
+  if (books.length !== booksData.length || !books) {
     throw new Error("This user hasn't book's with such ids");
   }
 
@@ -58,9 +61,52 @@ const deleteTraining = async (userId, trainingId) => {
   return res;
 };
 
+const updateStatistic = async (userId, payload) => {
+  const { trainingId, date, pages } = payload;
+
+  // if (isPastDate(new Date(date))) {
+  //   throw new Error("This date is in the past!");
+  // }
+
+  const training = await Training.findOne({
+    owner: userId,
+    _id: trainingId,
+  });
+
+  if (training === null) {
+    throw new Error(`Training with that id doesn't exist`);
+  }
+  //todo: check if date is not before start date, total pages
+  if (isPastDate(new Date(training.finish))) {
+    throw new Error(`This training is finished`);
+  }
+
+  const res = await Training.findOneAndUpdate(
+    {
+      owner: userId,
+      _id: trainingId,
+    },
+
+    {
+      $push: {
+        statistics: { date, pages },
+      },
+    },
+
+    {
+      new: true,
+    }
+  )
+    .populate("owner", "name email")
+    .populate("books.book");
+
+  return res;
+};
+
 module.exports = {
   createTraining,
   getAllTrainings,
   deleteTraining,
   getActiveTrainings,
+  updateStatistic,
 };

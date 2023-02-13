@@ -64,9 +64,20 @@ const validCreateTrainingSchema = Joi.object({
   books: Joi.array().items(book).required(),
 });
 
+const validUpdateStatisticSchema = Joi.object({
+  trainingId: Joi.string().required(),
+  date: Joi.date()
+    .format(["YYYY/MM/DD HH:mm:ss.SSSZ", "YYYY-MM-DD HH:mm:ss.SSSZ"])
+    .utc()
+    .default(Date.now()),
+
+  pages: Joi.number().required(),
+});
+
 const Training = model("training", trainingSchema);
 
 module.exports = {
   Training,
   validCreateTrainingSchema,
+  validUpdateStatisticSchema,
 };

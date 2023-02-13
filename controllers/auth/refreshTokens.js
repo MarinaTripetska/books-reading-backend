@@ -15,7 +15,7 @@ const refreshTokens = async (req, res, next) => {
   const tokens = await updateTokens(userId);
 
   res.status(200).json({
-    status: "success",
+    status: "OK",
     code: 200,
     data: {
       tokens,
