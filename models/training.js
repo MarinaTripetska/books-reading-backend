@@ -16,6 +16,16 @@ const trainingSchema = Schema(
       required: [true, "Finish date is required"],
     },
 
+    totalPages: {
+      type: Number,
+      required: [true, "Sum of all pages is required"],
+    },
+
+    readPages: {
+      type: Number,
+      default: 0,
+    },
+
     books: [
       {
         book: {

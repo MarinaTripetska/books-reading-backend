@@ -38,8 +38,11 @@ const createTraining = async (ownerId, payload) => {
     throw new Error("This user hasn't book's with such ids");
   }
 
+  const totalPages = books.reduce((acc, cur) => (acc += cur.pages), 0);
+
   const newTraining = await Training.create({
     owner: ownerId,
+    totalPages,
     ...payload,
   });
 
@@ -64,10 +67,7 @@ const deleteTraining = async (userId, trainingId) => {
 const updateStatistic = async (userId, payload) => {
   const { trainingId, date, pages } = payload;
 
-  // if (isPastDate(new Date(date))) {
-  //   throw new Error("This date is in the past!");
-  // }
-
+  //check if the training exist and get data about
   const training = await Training.findOne({
     owner: userId,
     _id: trainingId,
@@ -76,11 +76,32 @@ const updateStatistic = async (userId, payload) => {
   if (training === null) {
     throw new Error(`Training with that id doesn't exist`);
   }
-  //todo: check if date is not before start date, total pages
-  if (isPastDate(new Date(training.finish))) {
+
+  //check if payload.date is in start-finish diapason
+  const timeStampFinish = new Date(training.finish);
+  const timeStampStart = new Date(training.start);
+  const timeStampStatistic = new Date(date);
+
+  if (
+    timeStampFinish < timeStampStatistic ||
+    timeStampStatistic < timeStampStart
+  ) {
+    throw new Error(`Your statistic should be in start-finish diapason`);
+  }
+
+  //check if training has been finished
+  if (isPastDate(timeStampFinish)) {
     throw new Error(`This training is finished`);
   }
 
+  //check if reade pages are not more then total pages
+  if (training.readPages + pages <= training.totalPages) {
+    training.readPages += pages;
+  } else {
+    throw new Error("You provide more pages than you plan to read");
+  }
+
+  //update DB
   const res = await Training.findOneAndUpdate(
     {
       owner: userId,
@@ -88,6 +109,7 @@ const updateStatistic = async (userId, payload) => {
     },
 
     {
+      readPages: training.readPages,
       $push: {
         statistics: { date, pages },
       },
