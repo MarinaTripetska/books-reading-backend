@@ -16,7 +16,7 @@ router.get(
 
 //create training
 router.post(
-  "/create",
+  "/",
 
   ctrlWrapper(authorization),
 
@@ -27,7 +27,7 @@ router.post(
 
 //delete training
 router.delete(
-  "/delete",
+  "/",
 
   ctrlWrapper(authorization),
 
