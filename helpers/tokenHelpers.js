@@ -7,7 +7,7 @@ const generateAccessToken = (userId) => {
     type: "access",
   };
 
-  return jwt.sign(payload, SECRET_KEY, { expiresIn: "1m" });
+  return jwt.sign(payload, SECRET_KEY, { expiresIn: "10m" });
 };
 
 const generateRefreshToken = (userId) => {
@@ -16,7 +16,7 @@ const generateRefreshToken = (userId) => {
     type: "refresh",
   };
 
-  return jwt.sign(payload, SECRET_KEY, { expiresIn: "3m" });
+  return jwt.sign(payload, SECRET_KEY, { expiresIn: "30m" });
 };
 
 module.exports = {
