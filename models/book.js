@@ -33,7 +33,7 @@ const booksSchema = Schema({
   },
   resume: {
     type: "String",
-    default: null,
+    default: "",
   },
   rating: {
     type: Number,
@@ -112,7 +112,6 @@ const validUpdateResumeSchema = Joi.object({
   bookId: Joi.string().required(),
   resume: Joi.string().messages({
     "string.base": `"resume" should be a type of 'text'`,
-    "string.empty": `"resume" cannot be an empty field`,
   }),
   rating: Joi.number().min(1).max(5).messages({
     "string.base": `"rating" should be a type of 'number'`,
