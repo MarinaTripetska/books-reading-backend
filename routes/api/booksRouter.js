@@ -1,7 +1,7 @@
 const express = require("express");
 const {
   validCreateBookSchema,
-  // validUpdateBookSchema,
+  validUpdateBookSchema,
   validUpdateStatusSchema,
   validUpdateResumeSchema,
   validQueryStatusSchema,
@@ -58,6 +58,17 @@ router.delete(
   ctrlWrapper(authorization),
 
   ctrlWrapper(booksCtrl.deleteBook)
+);
+
+//update all od something
+router.put(
+  "/update",
+
+  ctrlWrapper(authorization),
+
+  validation(validUpdateBookSchema),
+
+  ctrlWrapper(booksCtrl.updateBook)
 );
 
 // update status:

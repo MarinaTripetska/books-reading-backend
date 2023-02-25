@@ -67,6 +67,8 @@ const validCreateBookSchema = Joi.object({
 });
 
 const validUpdateBookSchema = Joi.object({
+  bookId: Joi.string().required(),
+
   name: Joi.string().messages({
     "string.base": `"name" should be a type of 'text'`,
     "string.empty": `"name" cannot be an empty field`,
